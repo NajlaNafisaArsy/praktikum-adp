@@ -1,0 +1,26 @@
+program MenentukanVolumeRumah;
+
+var
+panjang_balok,lebar_balok,tinggi_balok,alas_prisma,tinggi_alas_prisma,tinggi_prisma,volume_balok,volume_prisma,volume_total :real;
+
+begin
+write('panjang balok=');
+readln(panjang_balok);
+write('lebar balok=');
+readln(lebar_balok);
+write('tinggi balok=');
+readln(tinggi_balok);
+
+write('alas prisma=');
+readln(alas_prisma);
+write('tinggi alas prisma=');
+readln(tinggi_alas_prisma);
+write('tinggi prisma=');
+readln(tinggi_prisma);
+
+volume_balok :=panjang_balok*lebar_balok*tinggi_balok;
+volume_prisma :=(1/2*alas_prisma*tinggi_alas_prisma)*tinggi_prisma;
+
+volume_total :=volume_balok+volume_prisma;
+writeln('volume rumah adalah= ',volume_total);
+end.
