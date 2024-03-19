@@ -1,0 +1,36 @@
+#Program Layanan Pesan Antar Makanan
+print('selamat datang di layanan pesan antar makanan kami')
+nama=input('silahkan masukkan nama anda : ')
+print('selamat berbelanja dengan senang hati',nama)
+
+print('silahkan pilih menu paket pilihan anda')
+print('daftar paket makanan : ')
+print('paket A = 25000')
+print('paket B = 30000')
+print('paket C = 45000')
+
+paket=input('masukkan pilihan paket makanan anda (A/B/C): ').upper()
+jumlah=int(input('silahkan masukkan jumlah pesanan anda :'))
+if paket == 'A':
+    harga_paket=25000
+elif paket == 'B':
+    harga_paket=30000
+elif paket == 'C':
+    harga_paket=45000
+else:
+    print('paket tidak tersedia')
+
+jarak=float(input('masukkan jarak pesanan anda(km): '))
+if jarak < 0:
+    print('jarak tidak valid')
+elif jarak < 0.5:
+    harga_ongkir= 0
+elif 0.5<= jarak <= 1.5:
+    harga_ongkir= 10000
+else:
+    harga_ongkir= 20000
+
+total_biaya=harga_paket*jumlah+harga_ongkir
+print('total biaya pesanan anda adalah Rp',total_biaya)
+print('terimakasih telah berbelanja di layanan kami, selamat menikmati makanan anda')
+
