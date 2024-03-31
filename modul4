@@ -23,6 +23,9 @@ print('4. Sunscreen')
 print('a. Wardah: Rp27000')
 print('b. Skintific: Rp94000')
 print('c. Scarlett: Rp560000')
+print('PROMO RAMADHAN')
+print('Diskon 35% untuk tiap pembelian moisturizer skintific lebih dari 2pcs')
+print('Dapatkan potongan harga 10% untuk tiap pembelian diatas 100000 (tidak berlaku kelipatan)')
 
 harga_produk1 = {'a': 20000, 'b': 80000, 'c': 60000}
 harga_produk2 = {'a': 18000, 'b': 95000, 'c': 69000}
@@ -74,9 +77,14 @@ while True:
     else:
         print('Nomor produk tidak valid')
 
+#Menerapka diskon 10% untuk total harga di atas Rp100.000
+if total_harga > 100000:
+    diskon = 0.1 * total_harga
+    total_harga -= diskon
+
 print('Detail pesanan Anda:')
 for item in keranjang:
     print(f"Produk: {item['produk']} - Merk: {item['merk']} - Jumlah: {item['jumlah']} pcs - Harga: Rp {item['harga']}")
 
-print(f'Total harga pembelian Anda adalah Rp {total_harga}')
-print('Terimakasiih',nama,'telah berbelanja di Najla Beauty Store')
+print(f'Total harga pembelian Anda adalah Rp {total_harga} (sudah termasuk potongan diskon jika sudah sesuai syarat pembelian)')
+print('Terimakasih', nama, 'telah berbelanja di Najla Beauty Store')
