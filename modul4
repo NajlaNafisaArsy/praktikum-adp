@@ -1,0 +1,82 @@
+print('Selamat datang di toko Najla Beauty Store')
+print('Dapatkan promo diskon dengan pembelian tertentu eksklusif selama bulan Ramadhan')
+print('Happy shopping dear')
+
+print('Silahkan isi registrasi identitas Anda terlebih dahulu')
+nama = input('Nama pelanggan : ')
+no_hp = input('No.HP : ')
+
+print('Daftar produk skincare Najla Beauty Store:')
+print('1. Facial wash')
+print('a. Wardah: Rp20000')
+print('b. Skintific: Rp80000')
+print('c. Scarlett: Rp600000')
+print('2. Toner')
+print('a. Wardah: Rp18000')
+print('b. Skintific: Rp95000')
+print('c. Scarlett: Rp690000')
+print('3. Moisturizer')
+print('a. Wardah: Rp22000')
+print('b. Skintific: Rp60000')
+print('c. Scarlett: Rp600000')
+print('4. Sunscreen')
+print('a. Wardah: Rp27000')
+print('b. Skintific: Rp94000')
+print('c. Scarlett: Rp560000')
+
+harga_produk1 = {'a': 20000, 'b': 80000, 'c': 60000}
+harga_produk2 = {'a': 18000, 'b': 95000, 'c': 69000}
+harga_produk3 = {'a': 22000, 'b': 60000, 'c': 60000}
+harga_produk4 = {'a': 27000, 'b': 94000, 'c': 56000}
+
+keranjang = []
+total_harga = 0
+
+while True:
+    produk = input('Masukkan nomor produk yang ingin Anda beli (1/2/3/4) atau ketik "selesai" untuk menyelesaikan pesanan: ')
+    if produk == 'selesai':
+        break
+
+    merk = input('Masukkan kode merk produk yang ingin Anda beli (a/b/c): ').lower()
+    jumlah = int(input('Masukkan jumlah produk: '))
+
+    if produk == '1':
+        if merk in harga_produk1:
+            harga = harga_produk1[merk] * jumlah
+            total_harga += harga
+            keranjang.append({'produk': 'Facial wash', 'merk': merk, 'jumlah': jumlah, 'harga': harga})
+        else:
+            print('Produk tidak tersedia')
+    elif produk == '2':
+        if merk in harga_produk2:
+            harga = harga_produk2[merk] * jumlah
+            total_harga += harga
+            keranjang.append({'produk': 'Toner', 'merk': merk, 'jumlah': jumlah, 'harga': harga})
+        else:
+            print('Produk tidak tersedia')
+    elif produk == '3':
+        if merk in harga_produk3:
+            harga = harga_produk3[merk] * jumlah
+            if merk == 'b' and jumlah > 2:
+                diskon = 0.35 * harga  # Diskon 35% untuk pembelian lebih dari 2 pcs produk 3b
+                harga -= diskon
+            total_harga += harga
+            keranjang.append({'produk': 'Moisturizer', 'merk': merk, 'jumlah': jumlah, 'harga': harga})
+        else:
+            print('Produk tidak tersedia')
+    elif produk == '4':
+        if merk in harga_produk4:
+            harga = harga_produk4[merk] * jumlah
+            total_harga += harga
+            keranjang.append({'produk': 'Sunscreen', 'merk': merk, 'jumlah': jumlah, 'harga': harga})
+        else:
+            print('Produk tidak tersedia')
+    else:
+        print('Nomor produk tidak valid')
+
+print('Detail pesanan Anda:')
+for item in keranjang:
+    print(f"Produk: {item['produk']} - Merk: {item['merk']} - Jumlah: {item['jumlah']} pcs - Harga: Rp {item['harga']}")
+
+print(f'Total harga pembelian Anda adalah Rp {total_harga}')
+print('Terimakasiih',nama,'telah berbelanja di Najla Beauty Store')
