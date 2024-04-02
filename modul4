@@ -40,7 +40,7 @@ while True:
     if produk == 'selesai':
         break
 
-    merk = input('Masukkan kode merk produk yang ingin Anda beli (a/b/c): ').lower()
+    merk = input('Masukkan kode merk produk yang ingin Anda beli (a/b/c): ').upper()
     jumlah = int(input('Masukkan jumlah produk: '))
 
     if produk == '1':
