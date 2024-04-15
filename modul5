@@ -1,0 +1,16 @@
+nilai_x = list(range(-10, 11))
+f_x = []
+
+for x in nilai_x:
+    if x > 0:
+        f = x**2 + 2*x
+    elif x < 0:
+        f = 1 / x
+    else:
+        f = 10
+    f_x.append(f)
+
+print("| {:>3s} | {:>7s} |".format("x", "f(x)"))  
+for x, f in zip(nilai_x, f_x):
+    print("| {:>3d} | {:>7.3f} |".format(x, f))
+
