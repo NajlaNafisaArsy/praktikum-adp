@@ -1,0 +1,68 @@
+n= int(input("Masukkan ukuran matriks A dan B (misalnya, untuk matriks 2x2, masukkan 2: "))
+
+#Matriks A
+matriks_A=[]
+print("Masukkan elemen matriks A:")
+for i in range(1,n+1):
+    baris=[]
+    for j in range (1,n+1):
+        a=int(input('elemen A[{},{}] : '.format(i,j)))
+        baris.append(a)
+    matriks_A.append(baris)
+print('Matriks A=')
+for baris in matriks_A:
+    print(baris)
+
+#Matriks B
+matriks_B=[]
+print("Masukkan elemen matriks B:")
+for i in range(1,n+1):
+    baris=[]
+    for j in range (1,n+1):
+        b=int(input('elemen B[{},{}] : '.format(i,j)))
+        baris.append(b)
+    matriks_B.append(baris)
+print('Matriks B=')
+for baris in matriks_B:
+    print(baris)
+
+#Matriks C(hasil perkalian matriks A dan B)
+matriks_C=[]
+for i in range(n):
+    baris = []
+    for j in range(n):
+        total = 0
+        for k in range(n):
+            total +=(matriks_A[i][k] * matriks_B[k][j])
+        baris.append(total)
+    matriks_C.append(baris)
+
+print("Hasil perkalian matriks A dan B (matriks C):")
+for baris in matriks_C:
+    print(baris)
+
+#Matriks D(hasil penjumlahan matriks A transpose dan B transpose)
+matriks_A_transpose = []
+for i in range(n):
+    baris= []
+    for j in range(n):
+        baris.append(matriks_A[j][i])
+    matriks_A_transpose.append(baris)
+
+matriks_B_transpose = []
+for i in range(n):
+    baris = []
+    for j in range(n):
+        baris.append(matriks_B[j][i])
+    matriks_B_transpose.append(baris)
+
+matriks_D = []
+for i in range(n):
+    baris = []
+    for j in range(n):
+        baris.append(matriks_A_transpose[i][j] + matriks_B_transpose[i][j])
+    matriks_D.append(baris)
+
+print("Hasil penjumlahan transpose matriks A dan B (matriks D):")
+for baris in matriks_D:
+    print(baris)
