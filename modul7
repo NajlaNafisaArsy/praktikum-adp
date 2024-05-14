@@ -1,0 +1,48 @@
+def input_data(n):
+    data = []
+    for i in range(n):
+        nilai = float(input(f"Masukkan data ke-{i+1}: "))
+        data.append(nilai)
+    return data
+
+def hitung_mean(data):
+    jumlah = sum(data)
+    jumlah_data = len(data)
+    mean = jumlah / jumlah_data
+    return mean
+
+def hitung_modus(data):
+    hitung = {}
+    for nilai in data:
+        if nilai in hitung:
+            hitung[nilai] += 1
+        else:
+            hitung[nilai] = 1
+    jumlah_tertinggi = 0
+    modus = None
+    for nilai, jumlah in hitung.items():
+        if jumlah > jumlah_tertinggi:
+            jumlah_tertinggi = jumlah
+            modus = nilai
+    return modus
+
+def hitung_varians(data):
+    mean = hitung_mean(data)
+    n = len(data)
+    nilai_varians = [(x - mean) ** 2 for x in data]
+    varians = sum(nilai_varians) / n
+    return varians
+
+def tampilkan_hasil(data):
+    mean = hitung_mean(data)
+    modus = hitung_modus(data)
+    varians = hitung_varians(data)
+    
+    print("Hasil Perhitungan:")
+    print("|{:<8} | {:>18.2f}|".format("Mean", mean))
+    print("|{:<8} | {:>18}|".format("Modus", modus))
+    print("|{:<8} | {:>18.2f}|".format("Varians",varians))
+    
+n = int(input("Masukkan jumlah data: "))
+data = input_data(n)
+tampilkan_hasil(data)
