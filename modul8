@@ -1,0 +1,111 @@
+FILE = "datafilm.txt"
+
+def pastikan_file_ada():
+    file = open(FILE, "a") 
+    file.close()
+
+def muat_data():
+    data = {}
+    with open(FILE, "r") as file:
+        baris = file.readlines()
+        for line in baris:
+            bagian = line.strip().split('|')
+            if len(bagian) == 4:
+                judul, nama_penulis_skenario, nama_sutradara, tahun_rilis = bagian
+                data[judul] = {
+                    "nama_penulis_skenario": nama_penulis_skenario,
+                    "nama_sutradara": nama_sutradara,
+                    "tahun_rilis": tahun_rilis
+                }
+    return data
+
+def simpan_data(data):
+    with open(FILE, "w") as file:
+        for judul, info in data.items():
+            file.write(f"{judul}|{info['nama_penulis_skenario']}|{info['nama_sutradara']}|{info['tahun_rilis']}\n")
+
+def tampilkan_menu():
+    print("\nMenu:")
+    print("1. Tambah Data Film")
+    print("2. Hapus Data Film")
+    print("3. Edit Data Film")
+    print("4. Tampilkan Data Film")
+    print("5. Keluar")
+    return input("Pilih menu (1/2/3/4/5): ")
+
+def tambah_film(data):
+    judul = input("Masukkan judul film: ")
+    nama_penulis_skenario = input("Masukkan nama penulis skenario: ")
+    nama_sutradara = input("Masukkan nama sutradara: ")
+    tahun_rilis = input("Masukkan tahun rilis: ")
+    
+    data[judul] = {
+        "nama_penulis_skenario": nama_penulis_skenario,
+        "nama_sutradara": nama_sutradara,
+        "tahun_rilis": tahun_rilis
+    }
+    simpan_data(data)
+    print(f"Film '{judul}' berhasil ditambahkan!")
+
+def hapus_film(data):
+    judul = input("Masukkan judul film yang ingin dihapus: ")
+    if judul in data:
+        del data[judul]
+        simpan_data(data)
+        print(f"Film '{judul}' berhasil dihapus!")
+    else:
+        print(f"Film '{judul}' tidak ditemukan!")
+
+def edit_film(data):
+    judul = input("Masukkan judul film yang ingin diedit: ")
+    if judul in data:
+        print(f"Data film '{judul}':")
+        print(f"1. nama penulis skenario: {data[judul]['nama_penulis_skenario']}")
+        print(f"2. nama_sutradara: {data[judul]['nama_sutradara']}")
+        print(f"3. tahun rilis: {data[judul]['tahun_rilis']}")
+        
+        nama_penulis_skenario = input("Masukkan nama penulis skenario (kosongkan jika tidak ingin mengubah): ")
+        nama_sutradara = input("Masukkan nama sutradara (kosongkan jika tidak ingin mengubah): ")
+        tahun_rilis = input("Masukkan tahun rilis (kosongkan jika tidak ingin mengubah): ")
+        
+        if nama_penulis_skenario:
+            data[judul]['nama_penulis_skenario'] = nama_penulis_skenario
+        if nama_sutradara:
+            data[judul]['nama_sutradara'] = nama_sutradara
+        if tahun_rilis:
+            data[judul]['tahun_rilis'] = tahun_rilis
+        
+        simpan_data(data)
+        print(f"Film '{judul}' berhasil diedit!")
+    else:
+        print(f"Film '{judul}' tidak ditemukan!")
+
+def tampilkan_film(data):
+    if data:
+        print("\nData Film:")
+        for judul, info in data.items():
+            print(f"\nJudul: {judul}")
+            print(f"nama_penulis skenario: {info['nama_penulis_skenario']}")
+            print(f"nama_sutradara: {info['nama_sutradara']}")
+            print(f"tahun rilis: {info['tahun_rilis']}")
+    else:
+        print("Tidak ada data film yang tersimpan.")
+
+pastikan_file_ada()
+data = muat_data()
+
+while True:
+    pilihan = tampilkan_menu()
+    if pilihan == "1":
+        tambah_film(data)
+    elif pilihan == "2":
+        hapus_film(data)
+    elif pilihan == "3":
+        edit_film(data)
+    elif pilihan == "4":
+        tampilkan_film(data)
+    elif pilihan == "5":
+        print("Keluar dari program.")
+        break
+    else:
+        print("Pilihan tidak tersedia. Silakan coba lagi.")
