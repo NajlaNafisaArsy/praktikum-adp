@@ -1,0 +1,50 @@
+import os
+from termcolor import colored,cprint
+
+os.system('cls')
+#baris1
+for i in range (4):
+	cprint(' '*3,'red','on_red',end=" ")
+	print(' ',end="")
+cprint(' '*6,'red','on_red')
+
+#baris2
+for j in range(3):
+    cprint(' '*3,'red','on_red',end=" ")
+    print(' ',end="")
+print(" ")
+
+#baris3
+for k in range(3):
+    cprint(' '*3,'red','on_red',end=" ")
+    print(' ',end="")
+cprint (" "*3,"grey","on_dark_grey",end=" ")
+print(" ",end="")
+cprint(' '*3,'red','on_red')
+ 
+ #baris4
+for n in range(3):
+     cprint(' '*3,'red','on_red',end=" ")
+     print(' ',end="")
+cprint (" "*3,"grey","on_dark_grey",end=" ")
+print(" ",end="")
+cprint(' '*3,'red','on_red')
+
+cprint(' '*3,'red','on_red',end=" ")
+print(" "*6,end="")
+cprint('   ','red','on_red',end=" ")
+print(' ',end="")
+
+cprint (" "*3,"grey","on_dark_grey",end=" ")
+print(" ",end="")
+cprint(' '*3,'red','on_red')
+
+#baris5
+cprint(' '*3,'red','on_red',end=" ")
+print(" "*6,end="")
+cprint('   ','red','on_red',end=" ")
+print(' ',end="")
+
+cprint (" "*3,"grey","on_dark_grey",end=" ")
+print(" ",end="")
+cprint(' '*3,'red','on_red')
