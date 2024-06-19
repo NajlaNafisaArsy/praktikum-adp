@@ -1,0 +1,174 @@
+import os
+import time
+from termcolor import colored, cprint
+
+os.system('cls')
+nama = input("Masukkan nama Anda: ")
+print("=====================================")
+print("Halooo! Selamat datang di Arsyvi Cake Store")
+print(f"Selamat berbelanja, {nama}")
+print("=====================================")
+
+# Biodata dictionary
+biodata = {
+    'no. hp': input('Masukkan no. HP: '),
+    'alamat': input('Masukkan alamat: ')
+}
+
+os.system('cls')
+def buat_menu():
+    # Menyimpan menu kue dalam bentuk array 2 dimensi
+    menu = [
+        ['choco cake', 'blackforest cake', 'nutella cake', 'strawberry cake', 'cheese cake'],
+        [120000, 150000, 160000, 110000, 155000]
+    ]
+    return menu
+
+def buat_topping():
+    # Menyimpan daftar topping
+    topping = ['choco chips', 'sprinkle', 'pita', 'oreo crunch', 'cherry']
+    return topping
+
+def tampilkan_menu(menu):
+    os.system('cls')  # Membersihkan layar konsol sebelum menampilkan menu
+    print("Menampilkan Menu...")
+    time.sleep(1)  # Memberikan jeda sebelum menampilkan menu
+    os.system('cls') 
+    print("Menu Kue:")
+    for i in range(len(menu[0])):
+        time.sleep(0.5)  # Memberikan jeda sebelum menampilkan setiap kue
+        nama_kue = colored(menu[0][i], 'yellow')  # Menggunakan warna kuning untuk nama kue
+        harga_kue = colored(f"Rp{menu[1][i]:,}", 'red')  # Menggunakan warna merah untuk harga kue
+        print(f"{i+1:<3} {nama_kue:<25} : {harga_kue:>10}")
+
+def tampilkan_topping(topping):
+    print("Daftar Topping:")
+    for i in range(len(topping)):
+        top_colored = colored(topping[i], 'magenta')
+        print(f"{i+1}. {top_colored}")
+
+def pesanan_kue(menu, topping):
+    pesanan = []
+    while True:
+        tampilkan_menu(menu)
+        while True:
+            pilihan = input("Pilih nomor kue yang ingin dipesan (atau ketik 'selesai' untuk mengakhiri): ")
+            if pilihan.lower() == 'selesai':
+                return pesanan
+            if not pilihan.isdigit() or int(pilihan) < 1 or int(pilihan) > len(menu[0]):
+                print("Pilihan tidak valid. Silakan coba lagi.")
+                continue
+            jumlah = input("Masukkan jumlah: ")
+            if not jumlah.isdigit() or int(jumlah) < 1:
+                print("Jumlah tidak valid. Silakan coba lagi.")
+                continue
+            indeks = int(pilihan) - 1
+            kue_pesanan = {'kue': menu[0][indeks], 'harga': menu[1][indeks], 'jumlah': int(jumlah), 'topping': []}
+
+            # Memasukkan topping ke dalam pesanan
+            while True:
+                tampilkan_topping(topping)
+                pilih_topping = input("Pilih nomor topping yang diinginkan (atau ketik 'selesai' untuk mengakhiri): ")
+                if pilih_topping.lower() == 'selesai':
+                    break
+                if not pilih_topping.isdigit() or int(pilih_topping) < 1 or int(pilih_topping) > len(topping):
+                    print("Pilihan tidak valid. Silakan coba lagi.")
+                    continue
+                kue_pesanan['topping'].append(topping[int(pilih_topping) - 1])
+                topping_lagi = input("Apakah Anda ingin menambahkan topping lain? (ya/tidak): ").lower()
+                if topping_lagi == 'tidak':
+                    break
+
+            pesanan.append(kue_pesanan)
+            break
+
+        while True:
+            pesan_lagi = input("Apakah Anda ingin memesan kue lain? (ya/tidak): ").lower()
+            if pesan_lagi in ['ya', 'tidak']:
+                break
+            print("Pilihan tidak valid. Silakan masukkan 'ya' atau 'tidak'.")
+        if pesan_lagi == 'ya':
+            pesanan.extend(pesanan_kue(menu, topping))
+        else:
+            break
+    return pesanan
+
+def cetak_pesanan(pesanan):
+    if not pesanan:
+        print("Belum ada pesanan.")
+        return
+    print("Mencetak Struk Pembelian...")
+    time.sleep(1)  # Memberikan jeda sebelum mencetak struk
+    os.system('cls')
+    print("----------TOTAL BELANJA DI ARSYVI CAKE STORE-----------")
+    total_harga = 0
+    for pesan in pesanan:
+        nama = pesan['kue']
+        harga = pesan['harga']
+        jumlah = pesan['jumlah']
+        topping = pesan['topping']
+        total = harga * jumlah
+        total_harga += total
+        time.sleep(0.5)  # Memberikan jeda sebelum mencetak setiap item pesanan
+        nama_colored = colored(nama, 'cyan')  # Menggunakan warna cyan untuk nama kue
+        total_colored = colored(f"Rp{total:,}", 'green')  # Menggunakan warna hijau untuk total harga item pesanan
+        print(f"{nama_colored:<28} x {jumlah:<5} : {total_colored:>15}")
+        if topping:
+            for t in topping:
+                topping_nama_colored = colored(t, 'magenta')
+                print(f"   + {topping_nama_colored:<12}")
+    time.sleep(0.5)  # Memberikan jeda sebelum mencetak total harga
+    print("-------------------------------------------------------")
+    cprint(f"{'Total Harga':<27} : Rp{total_harga:,}","white", "on_red")
+    print("-------------------------------------------------------")
+
+def simpan_pesanan_ke_file(pesanan, filename):
+    with open(filename, 'w') as file:
+        file.write("Struk Pembelian:\n")
+        total_harga = 0
+        for pesan in pesanan:
+            nama = pesan['kue']
+            harga = pesan['harga']
+            jumlah = pesan['jumlah']
+            topping = pesan['topping']
+            total = harga * jumlah
+            total_harga += total
+            file.write(f"{nama:<15} x {jumlah:>3} - Rp{total:,}\n")
+            if topping:
+                for t in topping:
+                    file.write(f"   + {t:<12}\n")
+        file.write(f"Total Harga: Rp{total_harga:,}\n")
+    time.sleep(1)  # Memberikan jeda sebelum pesan simpan struk
+    print(f"Struk pembelian telah disimpan ke dalam file {filename}\n")
+
+def main():
+    menu = buat_menu()
+    topping = buat_topping()
+
+    pesanan = []
+    while True:
+        print("===== ARSYVI CAKE STORE =====")
+        print("1. Tampilkan Menu")
+        print("2. Pesan Kue")
+        print("3. Cetak Struk")
+        print("4. Simpan Struk ke File")
+        print("5. Keluar")
+        pilihan = input("Pilih opsi: ")
+        if pilihan == '1':
+            tampilkan_menu(menu)
+        elif pilihan == '2':
+            pesanan_baru = pesanan_kue(menu, topping)
+            pesanan.extend(pesanan_baru)
+        elif pilihan == '3':
+            cetak_pesanan(pesanan)
+        elif pilihan == '4':
+            filename = input("Masukkan nama file untuk menyimpan struk (misalnya 'struk.txt'): ")
+            simpan_pesanan_ke_file(pesanan, filename)
+        elif pilihan == '5':
+            print(f"Terima kasih telah berbelanja di Arsyvi Cake Store, {nama}")
+            print("Silahkan membayar sesuai harga, transfer BRI only (111111111) a/n Arsyvi Cake Store")
+            break
+        else:
+            print("Opsi tidak valid. Silakan coba lagi.")
+
+main()
